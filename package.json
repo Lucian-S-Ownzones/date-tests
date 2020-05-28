@@ -7,11 +7,12 @@
   "license": "MIT",
   "dependencies": {
     "date-fns": "^2.14.0",
+    "date-fns-timezone": "^0.1.4",
     "jest": "^26.0.1",
     "moment": "^2.26.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest src/*.test.js --watch"
   },
   "devDependencies": {
     "eslint": "^7.1.0",

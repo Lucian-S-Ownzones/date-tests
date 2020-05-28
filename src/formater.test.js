@@ -1,9 +1,11 @@
 const moment = require('moment');
-moment.locale('en-gb');
 const locale = require('date-fns/locale');
+
+moment.locale('en-gb');
+
 const { formatGuard } = require('./helpers');
 
-const dates = ['2020-05-14T13:12:45.625Z', '2020-05-14T11:12:45.625Z'];
+const dates = ['2020-04-02T14:07:14.045Z', '2020-05-14T11:12:45.625Z'];
 
 describe('formatting', () => {
   test('check `lll` 1', () => {
@@ -29,14 +31,18 @@ describe('formatting', () => {
   });
 
   test('check DD/MM/YYYY hh:mm:ss', () => {
-    const m = moment(dates[1]).format('DD/MM/YYYY hh:mm:ss');
-    const d = formatGuard(new Date(dates[1]), 'dd/MM/Y hh:mm:ss');
-    expect(m).toEqual(d);
+    dates.map((date) => {
+      const m = moment(date).format('DD/MM/YYYY hh:mm:ss');
+      const d = formatGuard(new Date(date), 'dd/MM/Y hh:mm:ss');
+      expect(m).toEqual(d);
+    });
   });
 
   test('check ll', () => {
-    const m = moment(dates[1]).format('ll');
-    const d = formatGuard(new Date(dates[1]), 'dd LLL Y');
-    expect(m).toEqual(d);
+    dates.map((date) => {
+      const m = moment(date).format('ll');
+      const d = formatGuard(new Date(date), 'd LLL Y');
+      expect(m).toEqual(d);
+    });
   });
 });
