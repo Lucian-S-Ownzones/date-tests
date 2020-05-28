@@ -1,0 +1,24 @@
+{
+  "name": "date-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Lucian-S-Ownzones/date-tests.git",
+  "author": "Lucian S <lucian.stoica@ownzones.com>",
+  "license": "MIT",
+  "dependencies": {
+    "date-fns": "^2.14.0",
+    "jest": "^26.0.1",
+    "moment": "^2.26.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
