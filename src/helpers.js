@@ -1,11 +1,17 @@
 const isValid = require('date-fns/isValid');
 const format = require('date-fns/format');
 
-const formatGuard = (date, ...args) => {
-  if (!isValid(date)) return 'Invalid date';
-  return format(date, ...args);
+const dateFormatter = (date, ...args) => {
+  let d = date;
+  if (!(date instanceof Date)) {
+    d = new Date(date);
+  }
+
+  if (!isValid(d)) return 'Invalid date';
+
+  return format(d, ...args);
 };
 
 module.exports = {
-  formatGuard,
+  dateFormatter,
 };
