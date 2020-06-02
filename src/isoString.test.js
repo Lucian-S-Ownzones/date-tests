@@ -1,5 +1,6 @@
 const moment = require('moment');
 const startOfDay = require('date-fns/startOfDay');
+
 moment.locale('en-gb');
 
 describe('ISO string tests', () => {
