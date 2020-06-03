@@ -1,13 +1,11 @@
-const isValid = require('date-fns/isValid');
 const format = require('date-fns/format');
+const parseISO = require('date-fns/parseISO');
 
 const dateFormatter = (date, ...args) => {
-  let d = date;
-  if (!(date instanceof Date)) {
-    d = new Date(date);
+  let d = date instanceof Date ? date : parseISO(date);
+  if (!(d instanceof Date) || d.toString() === 'Invalid Date') {
+    return d.toString();
   }
-
-  if (!isValid(d)) return 'Invalid date';
 
   return format(d, ...args);
 };

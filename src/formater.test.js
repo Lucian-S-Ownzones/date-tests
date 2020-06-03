@@ -25,10 +25,14 @@ describe('formatting', () => {
     expect(locale.enUS.code).toEqual('en-US');
   });
 
-  test('check `lll` undefined', () => {
-    const m = moment(new Date(undefined)).format('lll');
-    const d = dateFormatter(undefined, 'MMM d, Y K:mm a');
-    expect(m).toEqual(d);
+  test.skip('different behaviour on null values', () => {
+    const notDate = [undefined, null, false, 0, 1];
+
+    notDate.forEach((date) => {
+      const m = moment(new Date(date)).format('lll');
+      const d = dateFormatter(date, 'MMM d, Y K:mm a');
+      expect(m.toLowerCase()).toEqual(d.toLowerCase());
+    });
   });
 
   test('check DD/MM/YYYY', () => {
