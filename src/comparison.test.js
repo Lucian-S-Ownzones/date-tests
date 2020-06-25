@@ -23,7 +23,7 @@ describe('comparison function, before, after D date', () => {
 
   test('isBefore comparison ', () => {
     datesBefore.concat(datesAfter).forEach((date, i) => {
-      const m = moment(new Date(date)).isBefore(new Date());
+      const m = moment(new Date(date)).isBefore(SecondOfJune);
       const d = isBefore(new Date(date), SecondOfJune);
       expect(m).toEqual(d);
     });
