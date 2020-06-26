@@ -1,7 +1,13 @@
 const parseISO = require('date-fns/parseISO');
 const locale = require('date-fns/locale');
 
-const { dateFormatter } = require('./helpers');
+const { ru } = locale;
+
+const {
+  dateFormatter,
+  isValidDate,
+  dateFormatterMessage,
+} = require('./helper');
 
 const invalidDates = [
   'notValid',
@@ -15,6 +21,10 @@ const invalidDates = [
 ];
 const secondOfJune = new Date(2020, 5, 2);
 const t23ofAugust = new Date(1944, 7, 23);
+const secondOfApril = '2020-04-02T14:07:14.045Z';
+const secondOfMay = '2020-05-02';
+const invalidMonth = '2020-15-02';
+const aString = 'aString';
 
 describe('using dateFormatter with Date parameter', () => {
   test('date-fns/parseISO fails to parse a Date type ', () => {
@@ -25,7 +35,7 @@ describe('using dateFormatter with Date parameter', () => {
 
   test("dateFormatter returns 'Invalid Date' for invalid dates", () => {
     invalidDates.forEach((date) => {
-      expect(dateFormatter(date)).toEqual('Invalid Date');
+      expect(dateFormatter(date, 'Y')).toEqual('Invalid Date');
     });
   });
 
@@ -37,7 +47,7 @@ describe('using dateFormatter with Date parameter', () => {
 
   test('formatting to different locale', () => {
     const toDayMonthRussian = (date) => {
-      return dateFormatter(date, 'dd MMMM', { locale: locale.ru });
+      return dateFormatter(date, 'dd MMMM', { locale: ru });
     };
     expect(toDayMonthRussian(t23ofAugust)).toEqual('23 августа');
     expect(toDayMonthRussian(secondOfJune)).toEqual('02 июня');
@@ -50,19 +60,14 @@ describe('using dateFormatter with Date parameter', () => {
 });
 
 describe('dateFormatter using `string-date` parameter', () => {
-  const secondOfApril = '2020-04-02T14:07:14.045Z';
-  const secondOfMay = '2020-05-02';
-  const invalidMonth = '2020-15-02';
-  const aString = 'aString';
-
   test('dateFormatter should return DAY name, with optional locale', () => {
     expect(dateFormatter(secondOfApril, 'EEEE')).toEqual('Thursday');
     expect(dateFormatter(secondOfMay, 'EEEE')).toEqual('Saturday');
 
-    expect(dateFormatter(secondOfApril, 'EEEE', { locale: locale.ru })).toEqual(
+    expect(dateFormatter(secondOfApril, 'EEEE', { locale: ru })).toEqual(
       'четверг'
     );
-    expect(dateFormatter(secondOfMay, 'EEEE', { locale: locale.ru })).toEqual(
+    expect(dateFormatter(secondOfMay, 'EEEE', { locale: ru })).toEqual(
       'суббота'
     );
   });
@@ -71,20 +76,50 @@ describe('dateFormatter using `string-date` parameter', () => {
     expect(dateFormatter(secondOfApril, 'LLLL')).toEqual('April');
     expect(dateFormatter(secondOfMay, 'LLLL')).toEqual('May');
 
-    expect(dateFormatter(secondOfApril, 'LLLL', { locale: locale.ru })).toEqual(
+    expect(dateFormatter(secondOfApril, 'LLLL', { locale: ru })).toEqual(
       'апрель'
     );
-    expect(dateFormatter(secondOfMay, 'LLLL', { locale: locale.ru })).toEqual(
-      'май'
-    );
+    expect(dateFormatter(secondOfMay, 'LLLL', { locale: ru })).toEqual('май');
   });
 
   test('dateFormatter should return `Invalid Date` for incorrect date string ', () => {
     expect(dateFormatter(invalidMonth, 'LLLL')).toEqual('Invalid Date');
     expect(dateFormatter(aString, 'LLLL')).toEqual('Invalid Date');
 
-    expect(dateFormatter(invalidMonth, 'LLLL', { locale: locale.ru })).toEqual(
+    expect(dateFormatter(invalidMonth, 'LLLL', { locale: ru })).toEqual(
       'Invalid Date'
     );
+  });
+});
+
+describe('isValidDate ', () => {
+  test('isValidDate check shall return false for invalid inputs', () => {
+    invalidDates.forEach((date) => {
+      expect(isValidDate(date)).toEqual(false);
+    });
+  });
+  test('isValidDate check shall return true for correct values', () => {
+    const secondOfMay = '2020-05-02';
+
+    expect(isValidDate(secondOfJune)).toEqual(true);
+    expect(isValidDate(t23ofAugust)).toEqual(true);
+    expect(isValidDate(secondOfMay)).toEqual(true);
+  });
+});
+
+describe('dateFormatter output custom message for invalid dates', () => {
+  const NOT_VALID = 'NOT VALID!';
+  const formatCustom = dateFormatterMessage(NOT_VALID);
+
+  test(`it should show ${NOT_VALID} `, () => {
+    invalidDates.forEach((date) => {
+      expect(formatCustom(date, 'Y')).toEqual(NOT_VALID);
+    });
+  });
+
+  test('it should format properly correct dates', () => {
+    expect(formatCustom(secondOfJune, 'dd MM')).toEqual('02 06');
+    expect(formatCustom(t23ofAugust, 'dd MM')).toEqual('23 08');
+    expect(formatCustom(t23ofAugust, 'dd MMM')).toEqual('23 Aug');
   });
 });
