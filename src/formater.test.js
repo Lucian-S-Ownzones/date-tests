@@ -21,20 +21,6 @@ describe('formatting', () => {
     });
   });
 
-  test('locale value ', () => {
-    expect(locale.enUS.code).toEqual('en-US');
-  });
-
-  test.skip('different behaviour on null values', () => {
-    const notDate = [undefined, null, false, 0, 1];
-
-    notDate.forEach((date) => {
-      const m = moment(new Date(date)).format('lll');
-      const d = dateFormatter(date, 'MMM d, Y K:mm a');
-      expect(m.toLowerCase()).toEqual(d.toLowerCase());
-    });
-  });
-
   test('check DD/MM/YYYY', () => {
     const m = moment(dates[1]).format('DD/MM/YYYY');
     const d = dateFormatter(dates[1], 'dd/MM/Y');
