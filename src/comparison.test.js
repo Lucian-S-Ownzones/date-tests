@@ -1,6 +1,8 @@
 const moment = require('moment');
 const isBefore = require('date-fns/isBefore');
 
+const formatDistanceToNow = require('date-fns/formatDistanceToNow');
+
 const SecondOfJune = new Date(2020, 5, 2);
 const datesBefore = [
   'Tue May 05 2020 03:00:00 GMT+0300',
@@ -27,5 +29,15 @@ describe('comparison function, before, after D date', () => {
       const d = isBefore(new Date(date), SecondOfJune);
       expect(m).toEqual(d);
     });
+  });
+});
+
+describe('distance express in words', () => {
+  const d1 = 'Tue May 05 2020 03:00:00 GMT+0300';
+  test.skip('moment.fromNow() !=== formatDistanceToNow', () => {
+    const m = moment(d1).fromNow();
+    const d = formatDistanceToNow(new Date(d1));
+
+    expect(m).toEqual(d);
   });
 });
