@@ -42,7 +42,15 @@ describe('check against moment formatting function', () => {
     });
   });
 
-  test('moment.format(DD MMMM YYYY) === dateFormatter(dd LL Y)', () => {
+  test('moment.format(M/D/YY) === dateFormatter(M/d/yy)', () => {
+    dates.map((date) => {
+      const m = moment(date).format('M/D/YY');
+      const d = dateFormatter(date, 'M/d/yy');
+      expect(m).toEqual(d);
+    });
+  });
+
+  test('moment.format(DD MM YYYY) === dateFormatter(dd LL Y)', () => {
     dates.map((date) => {
       const m = moment(new Date(date)).format('DD MM YYYY');
       const d = dateFormatter(date, 'dd LL Y');
@@ -52,7 +60,23 @@ describe('check against moment formatting function', () => {
     });
   });
 
-  test('moment.format(ll) === dateFormater(d LLL Y)', () => {
+  test('moment.format(YYYY-MM-DD HH:mm) === dateFormater(Y-MM-dd HH:mm)', () => {
+    dates.map((date) => {
+      const m = moment(date).format('YYYY-MM-DD HH:mm');
+      const d = dateFormatter(date, 'Y-MM-dd HH:mm');
+      expect(m).toEqual(d);
+    });
+  });
+
+  test('moment.format(MMMM Do YYYY h:mm:ss) === dateFormatter(MMMM do Y h:mm:ss)', () => {
+    dates.map((date) => {
+      const m = moment(date).format('MMMM Do YYYY h:mm:ss');
+      const d = dateFormatter(date, 'MMMM do Y h:mm:ss');
+      expect(m).toEqual(d);
+    });
+  });
+
+  test('moment.format(ll) === dateFormatter(d LLL Y)', () => {
     dates.map((date) => {
       const m = moment(date).format('ll');
       const d = dateFormatter(date, 'd LLL Y');
@@ -68,24 +92,22 @@ describe('check against moment formatting function', () => {
     });
   });
 
-  test('moment.format(YYYY-MM-DD HH:mm) === dateFormater(Y-MM-dd HH:mm)', () => {
-    dates.map((date) => {
-      const m = moment(date).format('YYYY-MM-DD HH:mm');
-      const d = dateFormatter(date, 'Y-MM-dd HH:mm');
-      expect(m).toEqual(d);
-    });
-  });
-
-  test('check LLL', () => {
+  test('moment.format(LLL) === dateFormatter(d MMMM Y HH:mm)', () => {
     dates.map((date) => {
       const m = moment(date).format('LLL');
       const d = dateFormatter(date, 'd MMMM Y HH:mm');
       expect(m).toEqual(d);
     });
   });
+
+  test('NOW: "moment().format(LLL) === dateFormatter(d MMMM Y HH:mm)"', () => {
+    const m = moment().format('LLL');
+    const d = dateFormatter(new Date(), 'd MMMM Y HH:mm');
+    expect(m).toEqual(d);
+  });
 });
 
-describe('check equality, moment.format === dateformatter', () => {
+describe('check equality, moment.format === dateFormatter', () => {
   test("moment('YYYY') === dateFormatter('Y')", () => {
     expect(moment().format('YYYY')).toEqual(dateFormatter(new Date(), 'y'));
   });
