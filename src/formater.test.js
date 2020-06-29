@@ -34,6 +34,24 @@ describe('check against moment formatting function', () => {
     });
   });
 
+  test('moment.format(YYYY-MM-DD HH:mm) === dateFormatter(dd/MM/Y hh:mm:ss)', () => {
+    dates.map((date) => {
+      const m = moment(date).format('YYYY-MM-DD HH:mm');
+      const d = dateFormatter(date, 'Y-MM-dd HH:mm');
+      expect(m).toEqual(d);
+    });
+  });
+
+  test('moment.format(DD MMMM YYYY) === dateFormatter(dd LL Y)', () => {
+    dates.map((date) => {
+      const m = moment(new Date(date)).format('DD MM YYYY');
+      const d = dateFormatter(date, 'dd LL Y');
+      const d1 = dateFormatter(new Date(date), 'dd LL Y');
+      expect(m).toEqual(d);
+      expect(d1).toEqual(d);
+    });
+  });
+
   test('moment.format(ll) === dateFormater(d LLL Y)', () => {
     dates.map((date) => {
       const m = moment(date).format('ll');
