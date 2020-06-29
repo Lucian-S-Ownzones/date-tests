@@ -5,24 +5,22 @@ const parseISO = require('date-fns/parseISO');
 const isValid = require('date-fns/isValid');
 const compose = require('lodash/fp/compose');
 
-const dateFormatterFallback = (message) => {
-  return (date, formatString, options) =>
-    dateFormatter(date, formatString, options, message);
-};
-
-const dateFormatter = (
-  date,
-  formatString,
-  options = { locale: enGB },
-  invalidMessage
-) => {
+const dateFormatter = (date, formatString, options = { locale: enGB }) => {
   const inputIsDate = date instanceof Date;
   let d = inputIsDate ? date : parseISO(date);
   if (!d || d.toString() === 'Invalid Date') {
-    return invalidMessage || d.toString();
+    return d.toString();
   }
 
   return format(d, formatString, options);
+};
+
+const dateFormatterMessage = (customMessage, invalid = 'Invalid Date') => {
+  return (date, formatString, options) => {
+    const dateValue = dateFormatter(date, formatString, options);
+    if (dateValue === invalid) return customMessage;
+    return dateValue;
+  };
 };
 
 const isValidDate = compose(isValid, (d) =>
@@ -32,5 +30,5 @@ const isValidDate = compose(isValid, (d) =>
 module.exports = {
   dateFormatter,
   isValidDate,
-  dateFormatterMessage: dateFormatterFallback,
+  dateFormatterMessage,
 };
