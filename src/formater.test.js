@@ -1,5 +1,4 @@
 const moment = require('moment');
-
 moment.locale('en-gb');
 
 const { dateFormatter } = require('./helper');
@@ -104,6 +103,14 @@ describe('check against moment formatting function', () => {
     const m = moment().format('LLL');
     const d = dateFormatter(new Date(), 'd MMMM Y HH:mm');
     expect(m).toEqual(d);
+  });
+
+  test('moment.format(DDMMYYYY_HH:mm) === dateFormatter(ddMMY_HH:mm)', () => {
+    dates.map((date) => {
+      const m = moment(date).format('DDMMYYYY_HH:mm');
+      const d = dateFormatter(date, 'ddMMY_HH:mm');
+      expect(m).toEqual(d);
+    });
   });
 });
 
