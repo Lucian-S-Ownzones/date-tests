@@ -8,7 +8,17 @@ const validDates = [
   '2020-04-30T11:03:56.341Z',
   '2020-04-29T14:47:55.379Z',
 ];
-const invalidDates = ['notValid', null, 0, {}, undefined, '', false];
+const invalidDates = [
+  'notValid',
+  null,
+  0,
+  {},
+  undefined,
+  '',
+  false,
+  'Thu Jun 25 2020 03:00:00 GMT+0300',
+  'Sat Jul 11 2020 03:00:00 GMT+0300',
+];
 
 describe('moment && date-fns invalid date formatting', () => {
   test("string check, will fill console warn: date-fns doesn't accept strings as arguments", () => {
