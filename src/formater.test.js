@@ -2,6 +2,9 @@ const moment = require('moment');
 moment.locale('en-gb');
 
 const { dateFormatter } = require('./helper');
+const { parseISO } = require('date-fns');
+const getUnixTime = require('date-fns/getUnixTime');
+const formatISO = require('date-fns/formatISO');
 
 const dates = [
   '2020-04-02T14:07:14.045Z',
@@ -112,18 +115,22 @@ describe('check against moment formatting function', () => {
       expect(m).toEqual(d);
     });
   });
-});
-
-describe('check equality, moment.format === dateFormatter', () => {
-  test("moment('YYYY') === dateFormatter('Y')", () => {
-    expect(moment().format('YYYY')).toEqual(dateFormatter(new Date(), 'y'));
-  });
-
   test("moment('MMMM Do YYYY, h:mm:ss a') === dateFormatter('MMMM do yyyy, h:mm:ss a'')", () => {
     dates.forEach((date) => {
       const m = moment(date).format('MMMM Do YYYY, h:mm:ss a');
       const d = dateFormatter(date, 'MMMM do yyyy, h:mm:ss a');
       expect(m).toEqual(d.replace('PM', 'pm'));
     });
+  });
+});
+
+describe('moment/timezones', () => {
+  test.skip('moment().utc().toISOString() ˜= dateFormatter()', () => {
+    const m = moment().utc().toISOString();
+    const d = formatISO(new Date());
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const unixTime = getUnixTime(new Date());
+    expect(timezone).toEqual('Europe/Bucharest');
+    expect(typeof Intl).toEqual('object');
   });
 });

@@ -8,9 +8,10 @@
   "dependencies": {
     "date-fns": "^2.14.0",
     "date-fns-timezone": "^0.1.4",
+    "date-fns-tz": "^1.0.10",
     "jest": "^26.0.1",
-    "moment": "^2.26.0",
-    "lodash": "4.17.15"
+    "lodash": "4.17.15",
+    "moment": "^2.26.0"
   },
   "scripts": {
     "test": "jest src/*.test.js --watch"
