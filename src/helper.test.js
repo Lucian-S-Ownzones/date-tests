@@ -123,3 +123,12 @@ describe('dateFormatter output custom message for invalid dates', () => {
     expect(formatCustom(t23ofAugust, 'dd MMM')).toEqual('23 Aug');
   });
 });
+
+describe('dateFormater expected outputs', () => {
+  test('dateFormatter(<date>, "dd/MM/Y")', () => {
+    const input = dateFormatter(secondOfJune, 'dd/MM/Y');
+    const output = '02/06/2020';
+
+    expect(input).toEqual(output);
+  });
+});

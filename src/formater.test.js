@@ -22,6 +22,12 @@ describe('check against moment formatting function', () => {
     });
   });
 
+  test("moment.format('MM/DD/YYYY'')===dateFormatter('MM/dd/Y')", () => {
+    const m = moment(dates[1]).format('MM/DD/YYYY');
+    const d = dateFormatter(dates[1], 'MM/dd/Y');
+    expect(m).toEqual(d);
+  });
+
   test("moment.format('DD/MM/YYYY')===dateFormatter('dd/MM/Y')", () => {
     const m = moment(dates[1]).format('DD/MM/YYYY');
     const d = dateFormatter(dates[1], 'dd/MM/Y');
