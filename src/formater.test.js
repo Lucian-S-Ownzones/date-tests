@@ -108,6 +108,14 @@ describe('check against moment formatting function', () => {
     });
   });
 
+  test('moment.format(LLLL) === dateFormatter(d MMMM Y HH:mm)', () => {
+    dates.map((date) => {
+      const m = moment(date).format('LLLL');
+      const d = dateFormatter(date, 'EEEE, d MMMM Y HH:mm');
+      expect(m).toEqual(d);
+    });
+  });
+
   test('NOW: "moment().format(LLL) === dateFormatter(d MMMM Y HH:mm)"', () => {
     const m = moment().format('LLL');
     const d = dateFormatter(new Date(), 'd MMMM Y HH:mm');
