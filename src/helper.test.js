@@ -165,4 +165,15 @@ describe('dateFormater expected outputs', () => {
     expect(input).toEqual(output);
     expect(input2).toEqual(output2);
   });
+
+  test('dateFormatter(<date>, "E, d MMM Y HH:mm)', () => {
+    const input = dateFormatter(secondOfApril, 'E, d MMM Y HH:mm');
+    const input2 = dateFormatter(firstOfMay, 'E, d MMM Y HH:mm');
+
+    const output = 'Thu, 2 Apr 2020 17:07';
+    const output2 = 'Fri, 1 May 2020 23:07';
+
+    expect(input).toEqual(output);
+    expect(input2).toEqual(output2);
+  });
 });
