@@ -22,6 +22,7 @@ const invalidDates = [
 const secondOfJune = new Date(2020, 5, 2);
 const t23ofAugust = new Date(1944, 7, 23);
 const secondOfApril = '2020-04-02T14:07:14.045Z';
+const firstOfMay = '2020-05-01T20:07:14.045Z';
 const secondOfMay = '2020-05-02';
 const invalidMonth = '2020-15-02';
 const aString = 'aString';
@@ -130,5 +131,38 @@ describe('dateFormater expected outputs', () => {
     const output = '02/06/2020';
 
     expect(input).toEqual(output);
+  });
+
+  test('dateFormatter(<date>, "d MMM Y HH:mm")', () => {
+    const input = dateFormatter(secondOfApril, 'd MMM Y HH:mm');
+    const input2 = dateFormatter(firstOfMay, 'd MMM Y HH:mm');
+
+    const output = '2 Apr 2020 17:07';
+    const output2 = '1 May 2020 23:07';
+
+    expect(input).toEqual(output);
+    expect(input2).toEqual(output2);
+  });
+
+  test('dateFormatter(<date>, "d MMMM Y HH:mm")', () => {
+    const input = dateFormatter(secondOfApril, 'd MMMM Y HH:mm');
+    const input2 = dateFormatter(firstOfMay, 'd MMMM Y HH:mm');
+
+    const output = '2 April 2020 17:07';
+    const output2 = '1 May 2020 23:07';
+
+    expect(input).toEqual(output);
+    expect(input2).toEqual(output2);
+  });
+
+  test('dateFormatter(<date>, "EEEE, d MMMM Y HH:mm)', () => {
+    const input = dateFormatter(secondOfApril, 'EEEE, d MMMM Y HH:mm');
+    const input2 = dateFormatter(firstOfMay, 'EEEE, d MMMM Y HH:mm');
+
+    const output = 'Thursday, 2 April 2020 17:07';
+    const output2 = 'Friday, 1 May 2020 23:07';
+
+    expect(input).toEqual(output);
+    expect(input2).toEqual(output2);
   });
 });
