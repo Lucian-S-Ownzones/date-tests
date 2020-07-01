@@ -37,9 +37,17 @@ describe('comparison function, before, after D date', () => {
   });
 
   test('moment.isBefore === date-fns.isBefore()', () => {
-    datesBefore.concat(datesAfter).forEach((date, i) => {
+    datesBefore.forEach((date) => {
       const m = moment(new Date(date)).isBefore(SecondOfJune);
       const d = isBefore(new Date(date), SecondOfJune);
+      expect(d).toBeTruthy();
+      expect(m).toEqual(d);
+    });
+
+    datesAfter.forEach((date) => {
+      const m = moment(new Date(date)).isBefore(SecondOfJune);
+      const d = isBefore(new Date(date), SecondOfJune);
+      expect(d).toBeFalsy();
       expect(m).toEqual(d);
     });
   });
@@ -56,6 +64,7 @@ describe('comparison function, before, after D date', () => {
     datesAfterFormat2.forEach((date, i) => {
       const m = moment(new Date(date)).isAfter(SecondOfJune);
       const d = isAfter(parseISO(date), SecondOfJune);
+      expect(d).toBeTruthy();
       expect(m).toEqual(d);
     });
   });
