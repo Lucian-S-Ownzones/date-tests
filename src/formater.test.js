@@ -76,7 +76,7 @@ describe('check against moment formatting function', () => {
     });
   });
 
-  test('moment.format(YYYY-MM-DD HH:mm) === dateFormater(Y-MM-dd HH:mm)', () => {
+  test('moment.format(YYYY-MM-DD HH:mm) === dateFormatter(Y-MM-dd HH:mm)', () => {
     dates.map((date) => {
       const m = moment(date).format('YYYY-MM-DD HH:mm');
       const d = dateFormatter(date, 'Y-MM-dd HH:mm');
@@ -173,5 +173,11 @@ describe('moment constructor', () => {
     const input3 = moment('232355', 'HH:mm');
     const output3 = '23:23';
     expect(input3.format('HH:mm')).toEqual(output3);
+  });
+  test('moment().format("HH:mm")', () => {
+    const input = moment(dates[0]).format('HH:mm');
+    const output = '17:07';
+
+    expect(input).toEqual(output);
   });
 });
