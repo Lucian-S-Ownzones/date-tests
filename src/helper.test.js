@@ -118,6 +118,13 @@ describe('dateFormatter output custom message for invalid dates', () => {
     });
   });
 
+  test('it should return null if <null> is set as message', () => {
+    const formatToNull = dateFormatterMessage(null);
+    invalidDates.forEach((date) => {
+      expect(formatToNull(date, 'Y')).toEqual(null);
+    });
+  });
+
   test('it should format properly correct dates', () => {
     expect(formatCustom(secondOfJune, 'dd MM')).toEqual('02 06');
     expect(formatCustom(t23ofAugust, 'dd MM')).toEqual('23 08');
@@ -175,5 +182,12 @@ describe('dateFormater expected outputs', () => {
 
     expect(input).toEqual(output);
     expect(input2).toEqual(output2);
+  });
+
+  test('dateFormatter(<date>, "dd/MM/Y hh:mm:ss")', () => {
+    const input = dateFormatter(secondOfApril, 'dd/MM/Y hh:mm:ss');
+    const output = '02/04/2020 05:07:14';
+
+    expect(input).toEqual(output);
   });
 });
