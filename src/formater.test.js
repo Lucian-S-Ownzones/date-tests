@@ -156,3 +156,22 @@ describe('moment/timezones', () => {
     expect(typeof Intl).toEqual('object');
   });
 });
+
+describe('moment constructor', () => {
+  test('parsing, and formatting moment(<date>, "HH:mm").format("HH:mm") ', () => {
+    const input1 = moment('133', 'HH:mm');
+    const output1 = '13:03';
+
+    expect(input1 instanceof moment).toBeTruthy();
+    expect(input1.format('HH:mm')).toEqual(output1);
+
+    const input2 = moment('99993', 'HH:mm');
+    const output2 = 'Invalid date';
+
+    expect(input2.format('HH:mm')).toEqual(output2);
+
+    const input3 = moment('232355', 'HH:mm');
+    const output3 = '23:23';
+    expect(input3.format('HH:mm')).toEqual(output3);
+  });
+});
