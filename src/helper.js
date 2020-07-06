@@ -3,7 +3,7 @@ const { enGB } = require('date-fns/locale');
 const format = require('date-fns/format');
 const parseISO = require('date-fns/parseISO');
 const isValid = require('date-fns/isValid');
-const compose = require('lodash/fp/compose');
+const compose = (f, g) => (x) => f(g(x));
 
 const dateFormatter = (date, formatString, options = { locale: enGB }) => {
   const inputIsDate = date instanceof Date;
