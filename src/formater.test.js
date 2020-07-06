@@ -36,6 +36,12 @@ describe('check against moment formatting function', () => {
     expect(m).toEqual(d);
   });
 
+  test("moment.format('MM/DD/YY'')===dateFormatter('MM/dd/yy')", () => {
+    const m = moment(dates[1]).format('MM/DD/YY');
+    const d = dateFormatter(dates[1], 'MM/dd/yy');
+    expect(m).toEqual(d);
+  });
+
   test("moment.format('DD/MM/YYYY')===dateFormatter('dd/MM/Y')", () => {
     const m = moment(dates[1]).format('DD/MM/YYYY');
     const d = dateFormatter(dates[1], 'dd/MM/Y');
@@ -97,6 +103,14 @@ describe('check against moment formatting function', () => {
       const m = moment(date).format('ll');
       const d = dateFormatter(date, 'd LLL Y');
       expect(m).toEqual(d);
+    });
+  });
+
+  test('moment.format(DD MMMM YYYY, hh:mm a) === dateFormatter(?)', () => {
+    dates.map((date) => {
+      const m = moment(date).format('DD MMMM YYYY, hh:mm a');
+      const d = dateFormatter(date, 'dd MMMM Y, hh:mm a');
+      expect(m).toEqual(d.replace(' PM', ' pm'));
     });
   });
 
