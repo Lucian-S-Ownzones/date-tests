@@ -27,8 +27,14 @@ const isValidDate = compose(isValid, (d) =>
   d instanceof Date ? d : parseISO(d)
 );
 
+const formatDate = (date, ...args) => {
+  const dateObject = typeof date === 'string' ? parseISO(date) : date;
+  return isValid(dateObject) ? format(dateObject, ...args) : null;
+};
+
 module.exports = {
   dateFormatter,
   isValidDate,
   dateFormatterMessage,
+  formatDate,
 };

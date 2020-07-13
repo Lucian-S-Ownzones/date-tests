@@ -2,7 +2,6 @@ const moment = require('moment');
 moment.locale('en-gb');
 
 const { dateFormatter } = require('./helper');
-const { parseISO } = require('date-fns');
 const getUnixTime = require('date-fns/getUnixTime');
 const formatISO = require('date-fns/formatISO');
 
