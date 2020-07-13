@@ -95,9 +95,20 @@ describe('between comparison', () => {
 
 describe('distance express in words, not 100% the same', () => {
   const d1 = 'Tue May 05 2020 03:00:00 GMT+0300';
-  test.skip('moment.fromNow() !=== formatDistanceToNow', () => {
+
+  test('parseISO should fail to convert local format dates ', () => {
+    expect(parseISO(d1).toString()).toEqual('Invalid Date');
+  });
+  test('moment.fromNow() !=== formatDistanceToNow', () => {
     const m = moment(d1).fromNow();
-    const d = formatDistanceToNow(new Date(d1));
+    const d = formatDistanceToNow(new Date(d1), { addSuffix: true });
+
+    expect(m).toEqual(d);
+  });
+  test('moment.fromNow() !=== formatDistanceToNow', () => {
+    const input = '2020-07-02T14:07:14.045Z';
+    const m = moment(input).fromNow();
+    const d = formatDistanceToNow(parseISO(input), { addSuffix: true });
 
     expect(m).toEqual(d);
   });
