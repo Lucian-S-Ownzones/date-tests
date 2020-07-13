@@ -1,6 +1,8 @@
 const format = require('date-fns/format');
 const parseISO = require('date-fns/parseISO');
+const isValid = require('date-fns/isValid');
 const moment = require('moment');
+const InvalidDate = 'Invalid Date';
 
 const validDates = [
   '2020-04-02T14:07:14.045Z',
@@ -52,7 +54,24 @@ describe('moment && date-fns invalid date formatting', () => {
     invalidDates.forEach((date) => {
       const d = parseISO(date);
       expect(d instanceof Date).toBeTruthy(); // each parse returns an instance of Date
-      expect(d.toString()).toEqual('Invalid Date');
+      expect(d.toString()).toEqual(InvalidDate);
     });
+  });
+});
+
+describe('parseISO && isValid checking invalid dates', () => {
+  test('parseISO shall return "Invalid Date"', () => {
+    invalidDates.forEach((date) => {
+      expect(() => parseISO(date)).not.toThrow();
+      expect(typeof parseISO(date)).toEqual('object');
+      expect(parseISO(date).toString()).toEqual(InvalidDate);
+    });
+  });
+  test('isValid checking invalid dates', () => {
+    expect(isValid({})).toEqual(false);
+    expect(isValid(undefined)).toEqual(false);
+    expect(isValid(0)).toEqual(true);
+    expect(isValid('undefined')).toEqual(false);
+    expect(isValid('Thu Jun 25 2020 03:00:00 GMT+0300')).toEqual(false);
   });
 });
