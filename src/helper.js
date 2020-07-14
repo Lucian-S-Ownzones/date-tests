@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { enGB } = require('date-fns/locale');
 
 const format = require('date-fns/format');
@@ -32,9 +33,14 @@ const formatDate = (date, ...args) => {
   return isValid(dateObject) ? format(dateObject, ...args) : null;
 };
 
+const removeTimeZoneHoursDiff = (date) => {
+  return moment(date).add(date.getTimezoneOffset(), 'm').format('YYYY-MM-DD');
+};
+
 module.exports = {
   dateFormatter,
   isValidDate,
   dateFormatterMessage,
   formatDate,
+  removeTimeZoneHoursDiff,
 };
