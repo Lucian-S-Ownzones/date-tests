@@ -33,6 +33,13 @@ const formatDate = (date, ...args) => {
   return isValid(dateObject) ? format(dateObject, ...args) : null;
 };
 
+const defaultFormats = (formatString, ...args) =>
+  formatDate(date, formatString, ...args);
+
+const predefinedFormats = {
+  longDate: 'dd MMMM Y, HH:mm',
+};
+
 const removeTimeZoneHoursDiff = (date) => {
   return moment(date).add(date.getTimezoneOffset(), 'm').format('YYYY-MM-DD');
 };
@@ -43,4 +50,6 @@ module.exports = {
   dateFormatterMessage,
   formatDate,
   removeTimeZoneHoursDiff,
+  defaultFormats,
+  predefinedFormats,
 };
