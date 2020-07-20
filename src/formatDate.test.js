@@ -2,6 +2,7 @@ const { formatDate } = require('./helper');
 
 const moment = require('moment');
 moment.locale('en-gb');
+
 const validDates = [
   '2020-04-02T14:07:14.045Z',
   '2020-05-14T11:12:45.625Z',
@@ -24,11 +25,7 @@ const invalidDates = [
 describe('formatDate wrapper', () => {
   test('invalid dates shall return null', () => {
     invalidDates.forEach((iD, i) => {
-      if (i !== 2) {
-        expect(formatDate(iD, 'y')).toEqual(null);
-      } else {
-        expect(formatDate(iD, 'y')).toEqual('1970');
-      }
+      expect(formatDate(iD, 'y')).toEqual(null);
     });
   });
 

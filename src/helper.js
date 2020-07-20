@@ -29,6 +29,7 @@ const isValidDate = compose(isValid, (d) =>
 );
 
 const formatDate = (date, ...args) => {
+  if (typeof date === 'number') return null;
   const dateObject = typeof date === 'string' ? parseISO(date) : date;
   return isValid(dateObject) ? format(dateObject, ...args) : null;
 };
