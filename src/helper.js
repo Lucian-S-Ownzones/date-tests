@@ -28,10 +28,10 @@ const isValidDate = compose(isValid, (d) =>
   d instanceof Date ? d : parseISO(d)
 );
 
-const formatDate = (date, ...args) => {
+const formatDate = (date, formatString = 'dd MMM yyyy  HH:mm', ...args) => {
   if (typeof date === 'number') return null;
   const dateObject = typeof date === 'string' ? parseISO(date) : date;
-  return isValid(dateObject) ? format(dateObject, ...args) : null;
+  return isValid(dateObject) ? format(dateObject, formatString, ...args) : null;
 };
 
 const defaultFormats = (formatString, ...args) =>

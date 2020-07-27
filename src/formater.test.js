@@ -13,6 +13,11 @@ const dates = [
 ];
 
 describe('check against moment formatting function', () => {
+  test('default format string outpus  `dd MMM yyyy  HH:mm`', () => {
+    expect(formatDate(dates[0])).toEqual('02 Apr 2020  17:07');
+    expect(formatDate(dates[1])).toEqual('14 May 2020  14:12');
+  });
+
   test("moment.format('lll'); ===  formatDate('d MMM Y HH:mm')", () => {
     dates.map((date) => {
       const m = moment(date).format('lll');
