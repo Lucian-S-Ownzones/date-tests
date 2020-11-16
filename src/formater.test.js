@@ -4,6 +4,10 @@ moment.locale('en-gb');
 const { formatDate } = require('./helper');
 const getUnixTime = require('date-fns/getUnixTime');
 const formatISO = require('date-fns/formatISO');
+const getYear = require('date-fns/getYear');
+const parseISO = require('date-fns/parseISO');
+const sub = require('date-fns/sub');
+const endOfDay = require('date-fns/endOfDay');
 
 const dates = [
   '2020-04-02T14:07:14.045Z',
@@ -13,9 +17,27 @@ const dates = [
 ];
 
 describe('check against moment formatting function', () => {
-  test('default format string outpus  `dd MMM yyyy  HH:mm`', () => {
-    expect(formatDate(dates[0])).toEqual('02 Apr 2020  17:07');
-    expect(formatDate(dates[1])).toEqual('14 May 2020  14:12');
+  test('default format string: code review', () => {
+    dates.forEach((d) => {
+      expect(formatDate(d, 'yyyyMMdd')).toEqual(moment(d).format('YYYYMMDD'));
+      expect(formatDate(d, 'MM/dd/yyy')).toEqual(
+        moment(d).format('MM/DD/YYYY')
+      );
+      expect(getYear(parseISO(d))).toEqual(moment(d).year());
+      expect(sub(parseISO(d), { days: 8 })).toEqual(
+        moment(d).subtract(8, 'days').toDate()
+      );
+
+      expect(endOfDay(parseISO(d))).toEqual(moment(d).endOf('day').toDate());
+    });
+  });
+
+  test("moment.format('lll'); ===  formatDate('d MMM Y HH:mm')", () => {
+    dates.map((date) => {
+      const m = moment(date).format('lll');
+      const d = formatDate(date, 'd MMM Y HH:mm');
+      expect(m).toEqual(d);
+    });
   });
 
   test("moment.format('lll'); ===  formatDate('d MMM Y HH:mm')", () => {
