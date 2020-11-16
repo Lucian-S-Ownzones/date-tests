@@ -45,6 +45,10 @@ const removeTimeZoneHoursDiff = (date) => {
   return moment(date).add(date.getTimezoneOffset(), 'm').format('YYYY-MM-DD');
 };
 
+const parseISO2 = (date) => {
+  return typeof date === 'string' ? parseISO(date) : date;
+};
+
 module.exports = {
   dateFormatter,
   isValidDate,
@@ -53,4 +57,5 @@ module.exports = {
   removeTimeZoneHoursDiff,
   defaultFormats,
   predefinedFormats,
+  parseISO2,
 };
