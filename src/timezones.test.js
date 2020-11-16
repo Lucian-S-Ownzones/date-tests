@@ -1,3 +1,4 @@
+const moment = require('moment');
 const momentTz = require('moment-timezone');
 const { removeTimeZoneHoursDiff } = require('./helper');
 
@@ -79,5 +80,24 @@ describe('parsing in TZ ', () => {
 
       expect(dDateLocal.getTime()).toEqual(dDateUTC.getTime());
     });
+  });
+});
+
+describe.only('moment date manipulation', () => {
+  const twenty = new Date(
+    'Tue Oct 20 2020 00:00:00 GMT+0300 (Eastern European Summer Time)'
+  );
+  const twentyOne = new Date('Tue, 20 Oct 2020 21:00:00 GMT');
+  test('timezone offset is correctly set', () => {
+    expect(twenty.getTimezoneOffset()).toEqual(-180);
+    expect(twentyOne.getTimezoneOffset()).toEqual(-180);
+  });
+  test('adding correct offset set correct date', () => {
+    const monthDay = moment(twenty).subtract(180, 'm').format('MM-DD');
+    expect(moment(twenty).format('MM-DD')).toEqual('10-20');
+    // const monthDay1 = moment(twenty).add(-180, 'm').format('MM-DD');
+
+    expect(monthDay).toEqual('10-19'); // !! incorect formating;
+    // expect(monthDay1).toEqual('10-20');
   });
 });
