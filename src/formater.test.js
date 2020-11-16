@@ -220,4 +220,12 @@ describe('moment constructor', () => {
 
     expect(input).toEqual(output);
   });
+
+  test("moment().format('dddd, MMMM DD') === formatDate(EEEE, LLLL dd)", () => {
+    dates.forEach((d) => {
+      expect(moment(d).format('dddd, MMMM DD')).toEqual(
+        formatDate(d, 'EEEE, LLLL dd')
+      );
+    });
+  });
 });
