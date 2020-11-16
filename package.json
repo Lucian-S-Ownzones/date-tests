@@ -15,7 +15,9 @@
     "moment-timezone": "^0.5.31"
   },
   "scripts": {
-    "test": "jest src/*.test.js --watch"
+    "test": "jest src/*.test.js --watch",
+    "test:tz": "env TZ='Europe/Bucharest' jest src/timezones.test.js --watch",
+    "test:tz:havana":  "env TZ='America/Havana' jest src/various.replace.test.js --watch"
   },
   "devDependencies": {
     "eslint": "^7.1.0",
