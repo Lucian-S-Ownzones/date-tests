@@ -17,7 +17,11 @@
   "scripts": {
     "test": "jest src/*.test.js --watch",
     "test:tz": "env TZ='Europe/Bucharest' jest src/timezones.test.js --watch",
-    "test:tz:havana":  "env TZ='America/Havana' jest src/various.replace.test.js --watch"
+    "test:tz:havana":  "env TZ='America/Havana' jest src/various.replace.test.js --watch",
+    "test:offset:havana":  "env TZ='America/Havana' jest src/offsetInMinutes.test.js --watch",
+    "test:offset:bucharest":  "env TZ='Europe/Bucharest' jest src/offsetInMinutes.test.js --watch"
+
+
   },
   "devDependencies": {
     "eslint": "^7.1.0",
